@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Recommendation System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main-container">
+        <h1 class="title">Medicine Recommendation System</h1>
+        <div class="input-container">
+            <h2>Enter Symptoms:</h2>
+            <input type="text" class="input-text" id="symptoms-input" placeholder="Separate multiple symptoms with commas (e.g., fever, headache, cough)">
+            <button class="button" onclick="recommendMedication()">Recommend Medicine</button>
+        </div>
+        <div id="recommendation-container" style="display: none;">
+            <div class="success-message">
+                Based on your symptoms, here are the recommended medications:
+                <ul id="medication-list"></ul>
+            </div>
+            <div class="warning-message" id="no-medication-message" style="display: none;">
+                No medications found for the selected symptoms.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function recommendMedication() {
+            var symptomsInput = document.getElementById("symptoms-input").value;
+            var symptoms = symptomsInput.split(",").map(symptom => symptom.trim());
+
+            if (symptoms.length === 0) {
+                alert("Please enter at least one symptom.");
+                return;
+            }
+
+            var recommendationContainer = document.getElementById("recommendation-container");
+            var medicationList = document.getElementById("medication-list");
+            var noMedicationMessage = document.getElementById("no-medication-message");
+
+            var medications = recommendMedicationPython(symptoms);
+
+            if (medications.length > 0) {
+                recommendationContainer.style.display = "block";
+                noMedicationMessage.style.display = "none";
+
+                medicationList.innerHTML = "";
+                medications.forEach(function(medication, index) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = medication;
+                    medicationList.appendChild(listItem);
+                });
+            } else {
+                recommendationContainer.style.display = "none";
+                noMedicationMessage.style.display = "block";
+            }
+        }
+
+        function recommendMedicationPython(symptoms) {
+            // Implement Python function call to recommend medication based on symptoms
+            return ["Medication 1", "Medication 2", "Medication 3"]; // Example data
+        }
+    </script>
+</body>
+</html>
